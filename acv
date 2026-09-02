@@ -1,0 +1,3 @@
+My recommendation is to avoid renaming the existing Vanguard LOB, as this may have broader dependencies. There are OPA controls, DNS changes, and other configurations tied to LOB additions/modifications that require SVC Engineering implementation and testing.
+
+Instead, we should add “Services” as a new LOB and have the required configurations created for it. This would be a cleaner and lower-risk approach while preserving the existing Vanguard setup and avoiding impact to the foundation already implemented.
