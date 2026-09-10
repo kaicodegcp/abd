@@ -1,0 +1,12 @@
+Thanks for the review and confirmation. Good to hear that the Terraform plan shows the existing role being updated in place and that there is no impact to the current resources.
+
+We are proceeding with a thorough regression validation in the SVC environment. The offshore team is validating the existing functionality, with particular focus on external volume and schema access use cases to ensure that the IAM role changes do not introduce any access or permission issues.
+
+Based on the current results, we do not anticipate needing to test from scratch by creating a new role or environment, since the existing role is being modified in place rather than replaced. Once the SVC regression testing is completed and the results are reviewed, we will proceed with deployment to the DEV region.
+
+Also, please confirm that there are no additional policy changes expected from your side, other than the individual ARN change in main.tf, so that we can ensure our regression testing covers the final configuration.
+
+In parallel, we are working on the TFIAC code changes to prepare the latest cleaned-up version for UAT/COB/PROD IAM deployment.
+
+Thanks,
+Satish
