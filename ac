@@ -9,3 +9,8 @@ which strace
 databricks version > /tmp/dbx_version.txt 2>&1
 echo "RC=$?"
 cat /tmp/dbx_version.txt
+
+
+databricks current-user me > /tmp/dbx_me.txt 2>&1
+echo "RC=$?"
+cat /tmp/dbx_me.txt
