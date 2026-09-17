@@ -1,1 +1,79 @@
+#!/bin/bash
+set -e
 
+echo "=== Databricks CLI Installation ==="
+
+# -------------------------------------------------------
+# 1. Proxy - uncomment/update if required
+# -------------------------------------------------------
+# export HTTPS_PROXY="http://your-proxy-host:port"
+# export HTTP_PROXY="$HTTPS_PROXY"
+
+# -------------------------------------------------------
+# 2. Detect Linux architecture
+# -------------------------------------------------------
+ARCH=$(uname -m)
+
+if [ "$ARCH" = "x86_64" ]; then
+    DBX_ARCH="amd64"
+elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then
+    DBX_ARCH="arm64"
+else
+    echo "ERROR: Unsupported architecture: $ARCH"
+    exit 1
+fi
+
+echo "Detected architecture: $ARCH"
+echo "Databricks architecture: $DBX_ARCH"
+
+# -------------------------------------------------------
+# 3. Get latest Databricks CLI version
+# -------------------------------------------------------
+VERSION=$(wget -qO- \
+  https://api.github.com/repos/databricks/cli/releases/latest \
+  | grep '"tag_name"' \
+  | cut -d '"' -f 4 \
+  | sed 's/^v//')
+
+if [ -z "$VERSION" ]; then
+    echo "ERROR: Unable to determine latest Databricks CLI version."
+    exit 1
+fi
+
+echo "Latest Databricks CLI version: $VERSION"
+
+# -------------------------------------------------------
+# 4. Download CLI
+# -------------------------------------------------------
+FILE="databricks_cli_${VERSION}_linux_${DBX_ARCH}.zip"
+
+URL="https://github.com/databricks/cli/releases/download/v${VERSION}/${FILE}"
+
+echo "Downloading:"
+echo "$URL"
+
+wget -O "/tmp/${FILE}" "$URL"
+
+# -------------------------------------------------------
+# 5. Extract
+# -------------------------------------------------------
+rm -rf /tmp/databricks-cli
+mkdir -p /tmp/databricks-cli
+
+unzip -o "/tmp/${FILE}" -d /tmp/databricks-cli
+
+chmod +x /tmp/databricks-cli/databricks
+
+# -------------------------------------------------------
+# 6. Install
+# -------------------------------------------------------
+sudo mv /tmp/databricks-cli/databricks /usr/local/bin/databricks
+
+# -------------------------------------------------------
+# 7. Verify
+# -------------------------------------------------------
+echo
+echo "=== Installation Complete ==="
+
+which databricks
+databricks version
