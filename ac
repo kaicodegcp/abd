@@ -14,3 +14,8 @@ cat /tmp/dbx_version.txt
 databricks current-user me > /tmp/dbx_me.txt 2>&1
 echo "RC=$?"
 cat /tmp/dbx_me.txt
+
+
+databricks account service-principals list > /tmp/dbx_sp.txt 2>&1
+echo "RC=$?"
+cat /tmp/dbx_sp.txt
