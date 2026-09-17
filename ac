@@ -1,0 +1,6 @@
+/usr/bin/timeout 10 /usr/bin/strace -f -o /tmp/dbx_strace.log /usr/local/bin/databricks version
+echo "RC=$?"
+
+tail -50 /tmp/dbx_strace.log
+which timeout
+which strace
