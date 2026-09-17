@@ -4,3 +4,8 @@ echo "RC=$?"
 tail -50 /tmp/dbx_strace.log
 which timeout
 which strace
+
+
+databricks version > /tmp/dbx_version.txt 2>&1
+echo "RC=$?"
+cat /tmp/dbx_version.txt
