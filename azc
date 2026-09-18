@@ -25,3 +25,8 @@ databricks jobs submit \
 
 echo "RC=$?"
 cat /tmp/dbx_submit.json
+
+DATABRICKS_HOST=https://c.com
+DATABRICKS_CLIENT_ID=<client-id>
+DATABRICKS_CLIENT_SECRET=***MASKED***
+DATABRICKS_AUTH_TYPE=oauth-m2m
