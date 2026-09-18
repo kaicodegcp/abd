@@ -1,0 +1,27 @@
+vi /home/sk60554/se/run_sp_extract.json
+
+
+{
+  "run_name": "service-principal-extraction-cli-test",
+  "tasks": [
+    {
+      "task_key": "sp_identity_extract",
+      "notebook_task": {
+        "notebook_path": "/Shared/sp-cli-test/service_principal_display_names_pr",
+        "source": "WORKSPACE",
+        "base_parameters": {
+          "sp_extract_ss": "YOUR_SECRET_SCOPE_NAME",
+          "account_id": "YOUR_ACCOUNT_ID",
+          "output_path": "/Volumes/YOUR_CATALOG/YOUR_SCHEMA/YOUR_VOLUME/service_principal_extract.json"
+        }
+      }
+    }
+  ]
+}
+
+databricks jobs submit \
+  --json @/home/sk60554/se/run_sp_extract.json \
+  > /tmp/dbx_submit.json 2>&1
+
+echo "RC=$?"
+cat /tmp/dbx_submit.json
