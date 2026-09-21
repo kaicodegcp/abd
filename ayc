@@ -1,0 +1,5 @@
+timeout 30 databricks workspace get-status /Shared/test01-cli-test \
+  > /tmp/dbx_status.txt 2>&1
+
+echo "RC=$?"
+cat /tmp/dbx_status.txt
