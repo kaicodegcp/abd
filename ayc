@@ -3,3 +3,16 @@ timeout 30 databricks workspace get-status /Shared/test01-cli-test \
 
 echo "RC=$?"
 cat /tmp/dbx_status.txt
+
+# 1. Confirm workspace host
+echo "$DATABRICKS_HOST"
+
+# 2. Confirm OAuth auth type
+echo "$DATABRICKS_AUTH_TYPE"
+
+# 3. Create a test workspace directory
+timeout 30 databricks workspace mkdirs /Shared/test01-cli-test \
+  > /tmp/dbx_mkdir.txt 2>&1
+
+echo "RC=$?"
+cat /tmp/dbx_mkdir.txt
