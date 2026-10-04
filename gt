@@ -7,3 +7,21 @@ hvs="U2FsdGVkX1+......"
 decrypt with key "miti"
       ↓
 VAULT_TOKEN="original token"
+
+
+
+# Encrypt your real token
+TOKEN="hvs.xxxxxxxxxxxxxxxxxxxxx"
+
+hvs=$(printf '%s' "$TOKEN" | \
+  openssl enc -aes-256-cbc -a -A -salt -pbkdf2 \
+  -pass pass:"miti")
+
+echo "$hvs"
+
+
+ACTUAL_TOKEN=$(printf '%s' "$hvs" | \
+  openssl enc -aes-256-cbc -a -A -d -pbkdf2 \
+  -pass pass:"miti")
+
+export VAULT_TOKEN="$ACTUAL_TOKEN"
