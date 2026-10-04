@@ -1,0 +1,9 @@
+Real Vault Token
+      ↓
+encrypt with key "miti"
+      ↓
+hvs="U2FsdGVkX1+......"
+      ↓
+decrypt with key "miti"
+      ↓
+VAULT_TOKEN="original token"
